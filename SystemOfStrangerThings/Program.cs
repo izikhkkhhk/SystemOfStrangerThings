@@ -67,7 +67,7 @@ public class WareHouse
     }
     public (bool, string) AddItem(Item item)
     {
-     if (CurrentItemCount >= Capacity)
+        if (CurrentItemCount >= Capacity)
         {
             return (false, "Bląd:Magazyn jest pełny. Nie można dodać więcej przedmiotów.");
         }
@@ -77,28 +77,39 @@ public class WareHouse
         {
             return (false, "Błąd:Dodanie tego przedmiotu przekroczy maksymalną dopuszczalną wagę magazynu.");
         }
-        if(CurrentItemCount > Capacity/2)
+        if (CurrentItemCount > Capacity / 2)
         {
             if (item.Weird_level >= 7 && item.Is_delicate == true)
             {
                 return (false, "Błąd: Zbyt ryzykowny przedmiot przy obecnym zapełnieniu");
             }
         }
-        
+
         Items.Add(item);
         CurrentItemCount++;
         return (true, "Przedmiot został pomyślnie dodany do magazynu.");
     }
-    public void ListOfAllItems()        {
-        if(Items.Count == 0)
+    public void ListOfAllItems()
+    {
+        if (Items.Count == 0)
         {
             Console.WriteLine("Magazyn jest pusty");
             return;
         }
         Console.WriteLine("Lista wszystkich przedmiotow:");
-        foreach(var item in Items)
+        foreach (var item in Items)
         {
             Console.WriteLine(item.description());
         }
-    }  
+    }
+
+}
+
+class ShulkerBoxColection : WareHouse
+{
+    public string Colection_name { get; set; }
+    public ShulkerBoxColection(string colection_name, int capacity, decimal maxTotalWeight) : base(capacity, maxTotalWeight)
+    {
+        Colection_name = colection_name;
+    }
 }
