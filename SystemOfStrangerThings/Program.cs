@@ -102,7 +102,23 @@ public class WareHouse
             Console.WriteLine(item.description());
         }
     }
+    public bool RemoveItem(string itemName)
+    {
+        var itemToRemove = Items.Find(item => item.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase));
+        if (itemToRemove != null)
+        {
+            Items.Remove(itemToRemove);
+            CurrentItemCount--;
 
+            Console.WriteLine($"Przedmiot '{itemName}' został usunięty z magazynu.");
+            return true;
+        }
+        else
+        {
+            Console.WriteLine($"Błąd: Przedmiot o nazwie '{itemName}' nie został znaleziony w magazynie.");
+            return false;
+        }
+    }
 }
 
 class ShulkerBoxColection : WareHouse
