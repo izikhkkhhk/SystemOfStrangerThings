@@ -44,5 +44,16 @@ public class BooleanYesNoConverter : JsonConverter<bool>
 
 public class WareHouse
 {
+    public int Capacity { get; private set; }
+    public int CurrentItemCount { get; private set; } 
+    public decimal MaxTotalWeight { get; private set; }
+    private List<Item> Items;
 
+    public WareHouse(int capacity, decimal maxTotalWeight)
+    {
+        Capacity = capacity;
+        MaxTotalWeight = Math.Round(maxTotalWeight, 3);
+        Items = new List<Item>();
+        CurrentItemCount = 0;
+    }
 }
