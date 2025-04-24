@@ -15,7 +15,7 @@ public class Item
         Name = name;
         Weight_kg = Math.Round(weight_kg, 3);
         Weird_level = weird_level;
-        if(weird_level> 10&& weird_level<1)
+        if(weird_level> 10 || weird_level<1)
         {
             Console.WriteLine("Weird level must be between 1 and 10");
             return;
@@ -44,16 +44,45 @@ public class BooleanYesNoConverter : JsonConverter<bool>
 
 public class WareHouse
 {
-    public int Capacity { get; private set; }
-    public int CurrentItemCount { get; private set; } 
-    public decimal MaxTotalWeight { get; private set; }
-    private List<Item> Items;
+    public int Capacity { get; private set; } // pojemnosc
+    public int CurrentItemCount { get; private set; } // aktualna_ilosc_przedmiotow
+    public decimal MaxTotalWeight { get; private set; } // maksymalna_laczna_waga
+    private List<Item> Items; // Kolekcja przechowująca przedmioty
 
     public WareHouse(int capacity, decimal maxTotalWeight)
     {
         Capacity = capacity;
-        MaxTotalWeight = Math.Round(maxTotalWeight, 3);
+        MaxTotalWeight = Math.Round(maxTotalWeight, 3); // Округление до 3 знаков после запятой
         Items = new List<Item>();
         CurrentItemCount = 0;
     }
+    private decimal GetCurrentTotalWeight()
+    {
+        decimal totalWeight = 0;
+        foreach (var item in Items)
+        {
+            totalWeight += item.Weight_kg;
+        }
+        return totalWeight;
+    }
+    public (bool, string) AddItem(Item item)
+    {
+        if (CurrentItemCount >= Capacity)
+        {
+            return (false, "Magazyn jest pełny. Nie można dodać więcej przedmiotów.");
+        }
+
+        decimal currentTotalWeight = GetCurrentTotalWeight();
+        if (currentTotalWeight + item.Weight_kg > MaxTotalWeight)
+        {
+            return (false, "Dodanie tego przedmiotu przekroczy maksymalną dopuszczalną wagę magazynu.");
+        }
+
+        Items.Add(item);
+        CurrentItemCount++;
+        return (true, "Przedmiot został pomyślnie dodany do magazynu.");
+    }
+    
+   
 }
+
