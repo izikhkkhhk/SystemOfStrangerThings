@@ -15,7 +15,7 @@ public class Item
         Name = name;
         Weight_kg = Math.Round(weight_kg, 3);
         Weird_level = weird_level;
-        if(weird_level> 10 || weird_level<1)
+        if(weird_level > 10 || weird_level < 1)
         {
             Console.WriteLine("Weird level must be between 1 and 10");
             return;
@@ -82,7 +82,19 @@ public class WareHouse
         CurrentItemCount++;
         return (true, "Przedmiot został pomyślnie dodany do magazynu.");
     }
-    
+    public void ListOfAllItems()
+    {
+        if(Items.Count == 0)
+        {
+            Console.WriteLine("The Warehouse is empty");
+            return;
+        }
+        Console.WriteLine("List of all items in the warehouse:");
+        foreach(var item in Items)
+        {
+            Console.WriteLine(item.description());
+        }
+    }
    
 }
 
