@@ -15,7 +15,7 @@ public class Item
         Name = name;
         Weight_kg = Math.Round(weight_kg, 3);
         Weird_level = weird_level;
-        if(weird_level > 10 || weird_level < 1)
+        if(weird_level > 10 && weird_level < 1)
         {
             Console.WriteLine("Weird level must be between 1 and 10");
             return;
@@ -38,7 +38,7 @@ public class BooleanYesNoConverter : JsonConverter<bool>
 
     public override void Write(Utf8JsonWriter writer, bool value, JsonSerializerOptions options)
     {
-        writer.WriteStringValue(value ? "Yes" : "No");
+        writer.WriteStringValue(value ? "Tak" : "Nie");
     }
 }
 
@@ -67,34 +67,38 @@ public class WareHouse
     }
     public (bool, string) AddItem(Item item)
     {
-        if (CurrentItemCount >= Capacity)
+     if (CurrentItemCount >= Capacity)
         {
-            return (false, "Magazyn jest pełny. Nie można dodać więcej przedmiotów.");
+            return (false, "Bląd:Magazyn jest pełny. Nie można dodać więcej przedmiotów.");
         }
 
         decimal currentTotalWeight = GetCurrentTotalWeight();
         if (currentTotalWeight + item.Weight_kg > MaxTotalWeight)
         {
-            return (false, "Dodanie tego przedmiotu przekroczy maksymalną dopuszczalną wagę magazynu.");
+            return (false, "Błąd:Dodanie tego przedmiotu przekroczy maksymalną dopuszczalną wagę magazynu.");
         }
-
+        if(CurrentItemCount > Capacity/2)
+        {
+            if (item.Weird_level >= 7 && item.Is_delicate == true)
+            {
+                return (false, "Błąd: Zbyt ryzykowny przedmiot przy obecnym zapełnieniu");
+            }
+        }
+        
         Items.Add(item);
         CurrentItemCount++;
         return (true, "Przedmiot został pomyślnie dodany do magazynu.");
     }
-    public void ListOfAllItems()
-    {
+    public void ListOfAllItems()        {
         if(Items.Count == 0)
         {
-            Console.WriteLine("The Warehouse is empty");
+            Console.WriteLine("Magazyn jest pusty");
             return;
         }
-        Console.WriteLine("List of all items in the warehouse:");
+        Console.WriteLine("Lista wszystkich przedmiotow:");
         foreach(var item in Items)
         {
             Console.WriteLine(item.description());
         }
-    }
-   
+    }  
 }
-
