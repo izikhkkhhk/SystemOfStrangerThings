@@ -119,6 +119,24 @@ public class WareHouse
             return false;
         }
     }
+    public void list_delicate_or_heavy(decimal weight_threshold)
+    {
+        if (Items.Count == 0)
+        {
+            Console.WriteLine("Magazyn jest pusty.");
+            return;
+        }
+
+        Console.WriteLine($"Przedmioty, które są delikatne lub mają wagę większą niż {weight_threshold} kg:");
+        foreach (var item in Items)
+        {
+            if (item.Is_delicate || item.Weight_kg > weight_threshold)
+            {
+                Console.WriteLine(item.description());
+            }
+        }
+
+    }
 }
 
 class ShulkerBoxColection : WareHouse
