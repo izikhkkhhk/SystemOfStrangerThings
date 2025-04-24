@@ -137,6 +137,21 @@ public class WareHouse
         }
 
     }
+    public void AverageWeirdLevel()
+    {
+        if (Items.Count == 0)
+        {
+            Console.WriteLine("Magazyn jest pusty.");
+            return;
+        }
+        decimal totalWeirdLevel = 0;
+        foreach (var item in Items)
+        {
+            totalWeirdLevel += item.Weird_level;
+        }
+        decimal averageWeirdLevel = totalWeirdLevel / Items.Count;
+        Console.WriteLine($"Średni poziom dziwności przedmiotów w magazynie: {averageWeirdLevel}");
+    }   
 }
 
 class ShulkerBoxColection : WareHouse
