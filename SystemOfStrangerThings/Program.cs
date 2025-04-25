@@ -154,12 +154,15 @@ public class WareHouse
     }   
 }
 
-class ShulkerBoxColection : WareHouse
+class ShulkerBoxColection
 {
     public string Colection_name { get; set; }
-    public ShulkerBoxColection(string colection_name, int capacity, decimal maxTotalWeight) : base(capacity, maxTotalWeight)
+    public List<WareHouse> WareHouses;
+
+    public ShulkerBoxColection(string name)
     {
-        Colection_name = colection_name;
+        Colection_name = name;
+        WareHouses = new List<WareHouse>();
     }
 }
 public class Programm
@@ -206,32 +209,7 @@ public class Programm
                     var (success, message) = warehouse.AddItem(item);
                     Console.WriteLine(message);
                     break;
-                case "2":
-                    warehouse.ListOfAllItems();
-                    break;
 
-                case "3":
-                    Console.WriteLine("Enter the name of the item to remove:");
-                    string itemNameToRemove = Console.ReadLine();
-                    warehouse.RemoveItem(itemNameToRemove);
-                    break;
-
-                case "4":
-                    Console.WriteLine("Enter the weight threshold:");
-                    decimal weightThreshold = decimal.Parse(Console.ReadLine());
-                    warehouse.list_delicate_or_heavy(weightThreshold);
-                    break;
-
-                case "5":
-                    warehouse.AverageWeirdLevel();
-                    break;
-
-                case "6":
-                    return;
-
-                default:
-                    Console.WriteLine("Invalid option. Please try again.");
-                    break;
 
             }
         }
