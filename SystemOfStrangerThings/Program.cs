@@ -260,7 +260,7 @@ public class Programm
                     collection.ListWareHouses();
                     break;
                 case "3":
-                    Console.WriteLine("Wybierz magazyn który potrzebujesz:");
+                    Console.WriteLine("Select a Warehouse by its number:");
                     collection.ListWareHouses();
                     int selectedWarehouseIndex;
                     if (int.TryParse(Console.ReadLine(), out selectedWarehouseIndex) && selectedWarehouseIndex > 0 && selectedWarehouseIndex <= collection.WareHouses.Count)
@@ -270,13 +270,13 @@ public class Programm
                     }
                     else
                     {
-                        Console.WriteLine("Błąd:Nieprawidłowy wybór. Spróbuj ponownie");
+                        Console.WriteLine("Invalid selection. Please try again.");
                     }
                     break;
                 case "4":
                     return;
                 default:
-                    Console.WriteLine("Błąd:Nieprawidłowa opcja. Spróbuj ponownie.");
+                    Console.WriteLine("Invalid option. Please try again.");
                     break;
             }
         }
