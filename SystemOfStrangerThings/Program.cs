@@ -162,3 +162,52 @@ class ShulkerBoxColection : WareHouse
         Colection_name = colection_name;
     }
 }
+public class Programm
+{
+    public static void Main(string[] args)
+    {
+    }
+    public static void ManageWarehouse(WareHouse warehouse)
+    {
+        while (true)
+        {
+            Console.WriteLine("\nZarządzanie magazynem:");
+            Console.WriteLine("1. Dodaj przedmiot");
+            Console.WriteLine("2. Wyświetl wszystkie przedmioty");
+            Console.WriteLine("3. Usuń przedmiot");
+            Console.WriteLine("4. Wyświetl delikatne lub ciężkie przedmioty");
+            Console.WriteLine("5. Pokaż średni poziom dziwności");
+            Console.WriteLine("6. Powrót do poprzedniego menu");
+
+            string choice = Console.ReadLine();
+            switch (choice)
+            {
+                case "1":
+                    Console.WriteLine("Podaj nazwę przedmiotu:");
+                    string name = Console.ReadLine();
+
+                    Console.WriteLine("Podaj wagę przedmiotu (w kg):");
+                    decimal weight = decimal.Parse(Console.ReadLine());
+
+                    int weirdLevel;
+                    while (true)
+                    {
+                        Console.WriteLine("Podaj poziom dziwności (1-10):");
+                        if (int.TryParse(Console.ReadLine(), out weirdLevel) && weirdLevel >= 1 && weirdLevel <= 10)
+                        {
+                            break;
+                        }
+                        Console.WriteLine("Błąd: Poziom dziwności musi być pomiędzy 1 a 10. Spróbuj ponownie.");
+                    }
+                    Console.WriteLine("Czy przedmiot jest delikatny? (true/false):");
+                    bool isDelicate = bool.Parse(Console.ReadLine());
+
+                    Item item = new Item(name, weight, weirdLevel, isDelicate);
+                    var (success, message) = warehouse.AddItem(item);
+                    Console.WriteLine(message);
+                    break;
+
+            }
+        }
+    }
+}
