@@ -256,6 +256,28 @@ public class Programm
 
                     Console.WriteLine("Magazyn został dodany do kolekcji");
                     break;
+                case "2":
+                    collection.ListWareHouses();
+                    break;
+                case "3":
+                    Console.WriteLine("Select a Warehouse by its number:");
+                    collection.ListWareHouses();
+                    int selectedWarehouseIndex;
+                    if (int.TryParse(Console.ReadLine(), out selectedWarehouseIndex) && selectedWarehouseIndex > 0 && selectedWarehouseIndex <= collection.WareHouses.Count)
+                    {
+                        WareHouse selectedWarehouse = collection.WareHouses[selectedWarehouseIndex - 1];
+                        ManageWarehouse(selectedWarehouse);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid selection. Please try again.");
+                    }
+                    break;
+                case "4":
+                    return;
+                default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
             }
         }
     } 
