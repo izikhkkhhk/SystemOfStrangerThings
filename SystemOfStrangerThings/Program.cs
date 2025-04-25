@@ -206,6 +206,32 @@ public class Programm
                     var (success, message) = warehouse.AddItem(item);
                     Console.WriteLine(message);
                     break;
+                case "2":
+                    warehouse.ListOfAllItems();
+                    break;
+
+                case "3":
+                    Console.WriteLine("Enter the name of the item to remove:");
+                    string itemNameToRemove = Console.ReadLine();
+                    warehouse.RemoveItem(itemNameToRemove);
+                    break;
+
+                case "4":
+                    Console.WriteLine("Enter the weight threshold:");
+                    decimal weightThreshold = decimal.Parse(Console.ReadLine());
+                    warehouse.list_delicate_or_heavy(weightThreshold);
+                    break;
+
+                case "5":
+                    warehouse.AverageWeirdLevel();
+                    break;
+
+                case "6":
+                    return;
+
+                default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
 
             }
         }
