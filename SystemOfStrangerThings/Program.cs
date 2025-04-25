@@ -256,6 +256,28 @@ public class Programm
 
                     Console.WriteLine("Magazyn został dodany do kolekcji");
                     break;
+                case "2":
+                    collection.ListWareHouses();
+                    break;
+                case "3":
+                    Console.WriteLine("Wybierz magazyn który potrzebujesz:");
+                    collection.ListWareHouses();
+                    int selectedWarehouseIndex;
+                    if (int.TryParse(Console.ReadLine(), out selectedWarehouseIndex) && selectedWarehouseIndex > 0 && selectedWarehouseIndex <= collection.WareHouses.Count)
+                    {
+                        WareHouse selectedWarehouse = collection.WareHouses[selectedWarehouseIndex - 1];
+                        ManageWarehouse(selectedWarehouse);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Błąd:Nieprawidłowy wybór. Spróbuj ponownie");
+                    }
+                    break;
+                case "4":
+                    return;
+                default:
+                    Console.WriteLine("Błąd:Nieprawidłowa opcja. Spróbuj ponownie.");
+                    break;
             }
         }
     } 
