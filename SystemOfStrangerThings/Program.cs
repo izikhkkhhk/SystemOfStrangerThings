@@ -17,7 +17,7 @@ public class Item
         Weird_level = weird_level;
         if(weird_level > 10 && weird_level < 1)
         {
-            Console.WriteLine("Weird level must be between 1 and 10");
+            Console.WriteLine("Poziom dziwności musi mieścić się w przedziale od 1 do 10");
             return;
         }
         Is_delicate = is_delicate;
@@ -33,7 +33,7 @@ public class BooleanYesNoConverter : JsonConverter<bool>
 {
     public override bool Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        return reader.GetString()?.ToLower() == "yes";
+        return reader.GetString()?.ToLower() == "tak";
     }
 
     public override void Write(Utf8JsonWriter writer, bool value, JsonSerializerOptions options)
@@ -186,42 +186,40 @@ public class Programm
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("Welcome to the world of strange items!");
+        Console.WriteLine("Siema Cwaniaczek. Tutaj jest miejsce na wszystkie twoje najdżiwniejsze rzeczy ");
 
         // Список для хранения всех коллекций Shulker Box
         List<ShulkerBoxColection> shulkerBoxCollections = new List<ShulkerBoxColection>();
 
         while (true)
         {
-            Console.WriteLine("\nMain Menu:");
-            Console.WriteLine("1. Create a new Shulker Box Collection");
-            Console.WriteLine("2. List all Shulker Box Collections");
-            Console.WriteLine("3. Manage a Shulker Box Collection");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine("\nGłówne menu:");
+            Console.WriteLine("1. Utwórz nową kolekcję ShulkerBox");
+            Console.WriteLine("2. Lista koleckji");
+            Console.WriteLine("3. Zarządzaj kolekcją  ShulkerBox");
+            Console.WriteLine("4. Wychodze stąd");
 
             string choice = Console.ReadLine();
             switch (choice)
             {
                 case "1":
-                    // Создание новой коллекции Shulker Box
-                    Console.WriteLine("Enter the name of the Shulker Box Collection:");
+                    Console.WriteLine("Wprowadź nazwę kolekcji ShulkerBox:");
                     string collectionName = Console.ReadLine();
 
                     ShulkerBoxColection newCollection = new ShulkerBoxColection(collectionName);
                     shulkerBoxCollections.Add(newCollection);
 
-                    Console.WriteLine($"Shulker Box Collection '{collectionName}' has been created.");
+                    Console.WriteLine($"Shulker Box Kolekcja '{collectionName}' została poślnie stworzona.");
                     break;
 
                 case "2":
-                    // Список всех коллекций Shulker Box
                     if (shulkerBoxCollections.Count == 0)
                     {
-                        Console.WriteLine("No Shulker Box Collections have been created yet.");
+                        Console.WriteLine("Nie utworzono jeszcze żadnych kolekcji ShulkerBox");
                     }
                     else
                     {
-                        Console.WriteLine("List of Shulker Box Collections:");
+                        Console.WriteLine("Lista kolekcji Shulker Box:");
                         for (int i = 0; i < shulkerBoxCollections.Count; i++)
                         {
                             Console.WriteLine($"{i + 1}. {shulkerBoxCollections[i].Colection_name}");
@@ -230,14 +228,13 @@ public class Programm
                     break;
 
                 case "3":
-                    // Управление коллекцией Shulker Box
                     if (shulkerBoxCollections.Count == 0)
                     {
-                        Console.WriteLine("No Shulker Box Collections have been created yet.");
+                        Console.WriteLine("Nie utworzono jeszcze żadnych kolekcji ShulkerBoox");
                         break;
                     }
 
-                    Console.WriteLine("Select a Shulker Box Collection by its number:");
+                    Console.WriteLine("Wybierz kolekcję ShulkerBox według numeru :");
                     for (int i = 0; i < shulkerBoxCollections.Count; i++)
                     {
                         Console.WriteLine($"{i + 1}. {shulkerBoxCollections[i].Colection_name}");
@@ -251,16 +248,16 @@ public class Programm
                     }
                     else
                     {
-                        Console.WriteLine("Invalid selection. Please try again.");
+                        Console.WriteLine("Nieprawidłowy wybór. Spróbuj ponownie");
                     }
                     break;
 
                 case "4":
-                    Console.WriteLine("Exiting the program...");
+                    Console.WriteLine("Koniec na dziś...");
                     return;
 
                 default:
-                    Console.WriteLine("Invalid option. Please try again.");
+                    Console.WriteLine("Nieprawidłowa opcja. Spróbuj ponownie");
                     break;
             }
         }
@@ -310,13 +307,13 @@ public class Programm
                     break;
 
                 case "3":
-                    Console.WriteLine("Enter the name of the item to remove:");
+                    Console.WriteLine("Wprowadź nazwę elementu, który chcesz usunąć:");
                     string itemNameToRemove = Console.ReadLine();
                     warehouse.RemoveItem(itemNameToRemove);
                     break;
 
                 case "4":
-                    Console.WriteLine("Enter the weight threshold:");
+                    Console.WriteLine("Wprowadź próg wagowy:");
                     decimal weightThreshold = decimal.Parse(Console.ReadLine());
                     warehouse.list_delicate_or_heavy(weightThreshold);
                     break;
@@ -329,7 +326,7 @@ public class Programm
                     return;
 
                 default:
-                    Console.WriteLine("Invalid option. Please try again.");
+                    Console.WriteLine("Bląd:Nieprawidłowa opcja. Spróbuj ponownie");
                     break;
             }
         }
@@ -363,7 +360,7 @@ public class Programm
                     collection.ListWareHouses();
                     break;
                 case "3":
-                    Console.WriteLine("Select a Warehouse by its number:");
+                    Console.WriteLine("Wybierz magazyn według numeru:");
                     collection.ListWareHouses();
                     int selectedWarehouseIndex;
                     if (int.TryParse(Console.ReadLine(), out selectedWarehouseIndex) && selectedWarehouseIndex > 0 && selectedWarehouseIndex <= collection.WareHouses.Count)
@@ -373,13 +370,13 @@ public class Programm
                     }
                     else
                     {
-                        Console.WriteLine("Invalid selection. Please try again.");
+                        Console.WriteLine("Bląd:Nieprawidłowy wybór. Spróbuj ponownie");
                     }
                     break;
                 case "4":
                     return;
                 default:
-                    Console.WriteLine("Invalid option. Please try again.");
+                    Console.WriteLine("Bląd:Nieprawidłowa opcja. Spróbuj ponownie");
                     break;
             }
         }
