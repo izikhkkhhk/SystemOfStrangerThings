@@ -186,12 +186,90 @@ public class Programm
 {
     public static void Main(string[] args)
     {
-    }
+        Console.WriteLine("Welcome to the world of strange items!");
+
+        // Список для хранения всех коллекций Shulker Box
+        List<ShulkerBoxColection> shulkerBoxCollections = new List<ShulkerBoxColection>();
+
+        while (true)
+        {
+            Console.WriteLine("\nMain Menu:");
+            Console.WriteLine("1. Create a new Shulker Box Collection");
+            Console.WriteLine("2. List all Shulker Box Collections");
+            Console.WriteLine("3. Manage a Shulker Box Collection");
+            Console.WriteLine("4. Exit");
+
+            string choice = Console.ReadLine();
+            switch (choice)
+            {
+                case "1":
+                    // Создание новой коллекции Shulker Box
+                    Console.WriteLine("Enter the name of the Shulker Box Collection:");
+                    string collectionName = Console.ReadLine();
+
+                    ShulkerBoxColection newCollection = new ShulkerBoxColection(collectionName);
+                    shulkerBoxCollections.Add(newCollection);
+
+                    Console.WriteLine($"Shulker Box Collection '{collectionName}' has been created.");
+                    break;
+
+                case "2":
+                    // Список всех коллекций Shulker Box
+                    if (shulkerBoxCollections.Count == 0)
+                    {
+                        Console.WriteLine("No Shulker Box Collections have been created yet.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("List of Shulker Box Collections:");
+                        for (int i = 0; i < shulkerBoxCollections.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {shulkerBoxCollections[i].Colection_name}");
+                        }
+                    }
+                    break;
+
+                case "3":
+                    // Управление коллекцией Shulker Box
+                    if (shulkerBoxCollections.Count == 0)
+                    {
+                        Console.WriteLine("No Shulker Box Collections have been created yet.");
+                        break;
+                    }
+
+                    Console.WriteLine("Select a Shulker Box Collection by its number:");
+                    for (int i = 0; i < shulkerBoxCollections.Count; i++)
+                    {
+                        Console.WriteLine($"{i + 1}. {shulkerBoxCollections[i].Colection_name}");
+                    }
+
+                    int selectedCollectionIndex;
+                    if (int.TryParse(Console.ReadLine(), out selectedCollectionIndex) && selectedCollectionIndex > 0 && selectedCollectionIndex <= shulkerBoxCollections.Count)
+                    {
+                        ShulkerBoxColection selectedCollection = shulkerBoxCollections[selectedCollectionIndex - 1];
+                        ManageShulkerBoxCollection(selectedCollection);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid selection. Please try again.");
+                    }
+                    break;
+
+                case "4":
+                    Console.WriteLine("Exiting the program...");
+                    return;
+
+                default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
+            }
+        }
+    } 
     public static void ManageWarehouse(WareHouse warehouse)
     {
         while (true)
         {
-            Console.WriteLine("\nZarządzanie magazynem:");
+            Console.WriteLine("\n\nZarządzanie magazynem:");
             Console.WriteLine("1. Dodaj przedmiot");
             Console.WriteLine("2. Wyświetl wszystkie przedmioty");
             Console.WriteLine("3. Usuń przedmiot");
@@ -227,7 +305,32 @@ public class Programm
                     Console.WriteLine(message);
                     break;
 
+                case "2":
+                    warehouse.ListOfAllItems();
+                    break;
 
+                case "3":
+                    Console.WriteLine("Enter the name of the item to remove:");
+                    string itemNameToRemove = Console.ReadLine();
+                    warehouse.RemoveItem(itemNameToRemove);
+                    break;
+
+                case "4":
+                    Console.WriteLine("Enter the weight threshold:");
+                    decimal weightThreshold = decimal.Parse(Console.ReadLine());
+                    warehouse.list_delicate_or_heavy(weightThreshold);
+                    break;
+
+                case "5":
+                    warehouse.AverageWeirdLevel();
+                    break;
+
+                case "6":
+                    return;
+
+                default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
             }
         }
     }
