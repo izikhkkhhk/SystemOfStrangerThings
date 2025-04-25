@@ -231,4 +231,32 @@ public class Programm
             }
         }
     }
+    private static void ManageShulkerBoxCollection(ShulkerBoxColection collection)
+    {
+        while (true)
+        {
+            Console.WriteLine($"\nZarządzanie Shulker Box kolekcją: {collection.Colection_name}");
+            Console.WriteLine("1. Dodaj nowy magazyn");
+            Console.WriteLine("2. Lista mgazynów");
+            Console.WriteLine("3. Zarządzanie magazynami");
+            Console.WriteLine("4. Wróć do głównego menu");
+
+            string choice = Console.ReadLine();
+            switch (choice)
+            {
+                case "1":
+                    Console.WriteLine("Podaj pojemność mamgazynu:");
+                    int capacity = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("Wprowadź maksymalną wagę magazynu (w kg):");
+                    decimal maxTotalWeight = decimal.Parse(Console.ReadLine());
+
+                    WareHouse newWarehouse = new WareHouse(capacity, maxTotalWeight);
+                    collection.AddWareHouse(newWarehouse);
+
+                    Console.WriteLine("Magazyn został dodany do kolekcji");
+                    break;
+            }
+        }
+    } 
 }
